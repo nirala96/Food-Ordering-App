@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:login_page_day_23/animation/FadeAnimation.dart';
-import 'package:login_page_day_23/login.dart';
-import 'package:login_page_day_23/signup.dart';
+import 'package:login_page_day_23/pages/login.dart';
+import 'package:login_page_day_23/pages/signup.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';

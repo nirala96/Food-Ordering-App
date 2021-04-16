@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:login_page_day_23/services/catalog_services.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:get_it/get_it.dart';
-import 'models/catalogmodel.dart';
+import 'package:login_page_day_23/models/catalogmodel.dart';
 
-class AdminDashboard extends StatefulWidget {
+class Dashboard extends StatefulWidget {
   @override
-  _AdminDashboardState createState() => _AdminDashboardState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _AdminDashboardState extends State<AdminDashboard> {
+class _DashboardState extends State<Dashboard> {
 
 
   @override
@@ -18,10 +18,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
     return Scaffold(
       backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
-        title: new Text("Swiggato - Admin DashBoard"),
+        title: new Text("Swiggato - DashBoard"),
       ),
       body: CatalogList(),
-      floatingActionButton: FloatingActionButton(child: Icon(Icons.add),),
     );
   }
 }
@@ -56,7 +55,7 @@ class _CatalogListState extends State<CatalogList> {
           final catalog = items[index];
           return InkWell(
             child: CatalogItem(catalog : catalog),
-            //  onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeDetailPage(catalog: catalog,))),
+          //  onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeDetailPage(catalog: catalog,))),
           );
         }
     );
@@ -94,7 +93,7 @@ class CatalogItem extends StatelessWidget {
                   buttonPadding: EdgeInsets.zero,
                   children: [
                     "\$${catalog.price}".text.xl.bold.make(),
-
+                    AddToCart(catalog : catalog),
                   ],
                 ).pOnly(right: 8.0)
               ],
@@ -122,3 +121,47 @@ class CatalogImage extends StatelessWidget {
 
 
 
+class AddToCart extends StatelessWidget {
+  final CatalogModel catalog;
+  AddToCart( {
+    Key key, this.catalog,
+  }) : super(key: key);
+
+  //bool isInCart = false;
+  // final _cart = CartModel();
+
+  @override
+  Widget build(BuildContext context) {
+
+   // VxState.watch(context, on: [AddMutation, RemoveMutation]);
+
+   // final CartModel _cart = (VxState.store as MyStore).cart;
+    //  final CatalogModel _catalog = (VxState.store as MyStore).catalog;
+
+    //bool isInCart = _cart.items.contains(catalog)?? false;
+
+    return ElevatedButton(
+      // onPressed: (){
+      //   if(!isInCart) {
+      //     // isInCart = isInCart.toggle();
+      //     // final _catalog = CatalogModel();
+      //
+      //     // _cart.catalog = _catalog;
+      //
+      //   //  AddMutation(catalog);
+      //     // _cart.add(catalog);
+      //     // setState(() {});
+      //   }
+      // },
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          Vx.indigo500,
+        ),
+        shape: MaterialStateProperty.all(
+          StadiumBorder(),
+        ),
+      ),
+      child: "Add to Cart".text.make(),
+    );
+  }
+}

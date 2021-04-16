@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login_page_day_23/Dashboard.dart';
+import 'package:login_page_day_23/pages/Dashboard.dart';
 import 'package:login_page_day_23/animation/FadeAnimation.dart';
-import 'package:login_page_day_23/admin_dashboard.dart';
+import 'package:login_page_day_23/pages/admin_dashboard.dart';
 
 class LoginPage extends StatelessWidget {
   @override
