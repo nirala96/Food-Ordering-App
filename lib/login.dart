@@ -70,9 +70,9 @@ class LoginPage extends StatelessWidget {
                         height: 60,
                         onPressed: () {
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
-                          // Navigator.of(context)
-                          //   .pushReplacementNamed('signup/choose_credentials');
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+                         // Navigator.of(context)
+                           //   .pushReplacementNamed('signup/choose_credentials');
 
                         },
                         color: Colors.greenAccent,
