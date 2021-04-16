@@ -70,7 +70,7 @@ class LoginPage extends StatelessWidget {
                         height: 60,
                         onPressed: () {
 
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
                          // Navigator.of(context)
                            //   .pushReplacementNamed('signup/choose_credentials');
 

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:login_page_day_23/profile_screen.dart';
 import 'package:login_page_day_23/services/catalog_services.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:get_it/get_it.dart';
 import 'models/catalogmodel.dart';
+
 
 class AdminDashboard extends StatefulWidget {
   @override
@@ -18,7 +20,27 @@ class _AdminDashboardState extends State<AdminDashboard> {
     return Scaffold(
       backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
-        title: new Text("Swiggato - Admin DashBoard"),
+        leading: new IconButton(
+          icon: new Icon(Icons.dehaze),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+          },
+
+        ),
+//        leading: Icon(
+//
+//          Icons.dehaze,
+//          color: Colors.white,
+//
+//        ),
+        title: new Text("Swiggato - DashBoard"),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.search), onPressed: (){
+//            Navigator.push(context, MaterialPageRoute(builder: (context)=>PatientScreen()),
+//          );
+            //onpressed action
+          })
+        ],
       ),
       body: CatalogList(),
       floatingActionButton: FloatingActionButton(child: Icon(Icons.add),),
