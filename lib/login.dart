@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:login_page_day_23/Dashboard.dart';
 import 'package:login_page_day_23/animation/FadeAnimation.dart';
+import 'package:login_page_day_23/admin_dashboard.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -66,7 +68,11 @@ class LoginPage extends StatelessWidget {
                       child: MaterialButton(
                         minWidth: double.infinity,
                         height: 60,
-                        onPressed: () {},
+                        onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+                         // Navigator.of(context)
+                           //   .pushReplacementNamed('signup/choose_credentials');
+                        },
                         color: Colors.greenAccent,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
