@@ -1,23 +1,49 @@
 import 'dart:convert';
-
-import 'package:food_ordering_app/models/user_model.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:food_ordering_app/models/user_api_model.dart';
+import 'package:food_ordering_app/views/admin_dashboard.dart';
 import 'package:http/http.dart' as http;
 
-Future<User> LoginUser(String userName, String userPass) async {
-  Uri url = Uri.parse('http://192.168.43.27:8800/loginUser');
-  final http.Response response = await http.post(
+Future<UserApi> LoginUser(String userName, String userPass) async {
+  Uri url = Uri.parse('http://192.168.43.27:8800/login');
+  final http.Response res = await http.post(
     url,
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      'user_name': userName,
+      'user_id': userName,
       'user_pass': userPass,
     }),
   );
-  if (response.statusCode == 201) {
-    return User.fromJson(json.decode(response.body));
+  var data = json.decode(res.body);
+  if (res.statusCode == 403) {
+    print('login failed');
+    Fluttertoast.showToast(
+      msg: "Login Failed",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   } else {
-    throw Exception('Failed to load album');
+    Fluttertoast.showToast(
+      msg: "Login Succesful",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => LoginPage(),
+    //   ),
+    // );
   }
 }

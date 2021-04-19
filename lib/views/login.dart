@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
+import 'package:food_ordering_app/models/user_api_model.dart';
+import 'package:food_ordering_app/services/user_login_services.dart';
 import 'package:food_ordering_app/views/admin_dashboard.dart';
+import 'package:food_ordering_app/views/widgets/errorDialog.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController cusername = new TextEditingController();
@@ -60,9 +63,20 @@ class LoginPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: <Widget>[
-                        FadeAnimation(1.2, makeInput(label: "Email"),),
-                        FadeAnimation(1.3,
-                            makeInput(label: "Password", obscureText: true)),
+                        FadeAnimation(
+                          1.2,
+                          makeInput(
+                            label: "Email",
+                            controller_val: cusername,
+                          ),
+                        ),
+                        FadeAnimation(
+                            1.3,
+                            makeInput(
+                              label: "Password",
+                              controller_val: cpassword,
+                              obscureText: true,
+                            )),
                       ],
                     ),
                   ),
@@ -84,6 +98,27 @@ class LoginPage extends StatelessWidget {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () {
+                              // Future currentUser =
+                              LoginUser(cusername.text, cpassword.text);
+                              // FutureBuilder<UserApi>(
+                              //     future:
+                              //         LoginUser(cusername.text, cpassword.text),
+                              //     builder: (BuildContext context,
+                              //         AsyncSnapshot snapshot) {
+                              //       if (snapshot.hasData) {
+                              //         if (_status(snapshot) == 'false') {
+                              //           print('login failed ');
+                              //         }
+                              //       }
+                              //       return;
+                              //     });
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => AlertWidget(),
+                              //   ),
+                              // );
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -133,8 +168,8 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-  // TODO: make text controllers like signup.dart
-  Widget makeInput({label, obscureText = false}) {
+
+  Widget makeInput({label, controller_val, obscureText = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -147,6 +182,7 @@ class LoginPage extends StatelessWidget {
           height: 5,
         ),
         TextField(
+          controller: controller_val,
           obscureText: obscureText,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),

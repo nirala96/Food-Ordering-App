@@ -7,8 +7,9 @@ import 'dart:async';
 import 'dart:convert';
 
 class SignupPage extends StatelessWidget {
-  final TextEditingController cusername = new TextEditingController();
-  final TextEditingController cpassword = new TextEditingController();
+  TextEditingController cusername = new TextEditingController();
+  TextEditingController cname = new TextEditingController();
+  TextEditingController cpassword = new TextEditingController();
 
   // void addData() {
   //   var url =
@@ -77,13 +78,18 @@ class SignupPage extends StatelessWidget {
                     ),
                   ),
                   FadeAnimation(
-                    1.3,
+                    1.2,
                     makeInput(
-                      label: "Password",
-                      controller_val: cpassword,
-                      obscureText: true,
+                      label: "Name",
+                      controller_val: cname,
                     ),
                   ),
+                  FadeAnimation(
+                      1.3,
+                      makeInput(
+                          label: "Password",
+                          controller_val: cpassword,
+                          obscureText: true)),
                   FadeAnimation(
                     1.4,
                     makeInput(
@@ -96,7 +102,7 @@ class SignupPage extends StatelessWidget {
               FadeAnimation(
                   1.5,
                   Container(
-                    padding: EdgeInsets.only(top: 3, left: 3),
+                    padding: EdgeInsets.only(top: 1, left: 3),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         border: Border(
@@ -107,10 +113,9 @@ class SignupPage extends StatelessWidget {
                         )),
                     child: MaterialButton(
                       minWidth: double.infinity,
-                      height: 60,
+                      height: 50,
                       onPressed: () {
-                        signupUser(cusername.text, cpassword.text);
-                        // TODO: route this to the main login signup page
+                        signupUser(cusername.text, cname.text, cpassword.text);
                       },
                       color: Colors.greenAccent,
                       elevation: 0,
@@ -132,7 +137,9 @@ class SignupPage extends StatelessWidget {
                       Text(
                         " Login",
                         style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 18),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
                       ),
                     ],
                   )),
@@ -159,7 +166,7 @@ class SignupPage extends StatelessWidget {
           controller: controller_val,
           obscureText: obscureText,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 2),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey[400])),
             border: OutlineInputBorder(
@@ -167,7 +174,7 @@ class SignupPage extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 10,
         ),
       ],
     );

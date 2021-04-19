@@ -35,6 +35,7 @@ dependencies:
   mysql1: ^0.19.0
   velocity_x: ^2.6.1
   get_it: ^6.1.1
+  fluttertoast: ^8.0.4
 
 dev_dependencies:
   flutter_test:
