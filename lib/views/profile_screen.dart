@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'Forms/UserDetailForm.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
@@ -13,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
               children: <Widget>[
                 CircleAvatar(
                   radius: 50.0,
-                  backgroundImage: AssetImage('assets/prakhar.jpg'),
+                  backgroundImage: AssetImage('assets/nirala.jpeg'),
                 ),
                 SizedBox(
                   height: 20.0,
@@ -23,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
 //                  ),
                 ),
                 Text(
-                  'Pramkhar',
+                  'Arunoday Kumar',
                   style: TextStyle(
                     fontFamily: 'Pacifico',
                     fontSize: 30.0,
@@ -39,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
 //                  ),
                 ),
                 Text(
-                  'Gulabi@gmail.com',
+                  'arunoday@gmail.com',
                   style: TextStyle(
                     fontFamily: 'Source Sans Pro',
                     color: Colors.white,
@@ -91,6 +92,9 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                     child: ListTile(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => UserDetailForm()));
+                      },
                       leading: Icon(
                         Icons.edit,
                         color: Colors.white,
@@ -106,7 +110,9 @@ class ProfileScreen extends StatelessWidget {
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.white,
                       ),
-                    )),
+                    ),
+
+                ),
                 Card(
                   color: Color(0xff373737),
                   shape: RoundedRectangleBorder(
