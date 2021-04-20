@@ -5,6 +5,7 @@ import 'package:food_ordering_app/services/catalog_services.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:get_it/get_it.dart';
 import '../models/catalogmodel.dart';
+import 'Forms/DishAddForm.dart';
 
 class AdminDashboard extends StatefulWidget {
   @override
@@ -34,6 +35,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
       ),
       body: CatalogList(),
       floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DishAddForm()));
+        },
         child: Icon(Icons.add),
       ),
     );

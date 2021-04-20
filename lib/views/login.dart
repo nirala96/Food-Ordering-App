@@ -162,7 +162,8 @@ class LoginPage extends StatelessWidget {
                       image: DecorationImage(
                           image: AssetImage('assets/restaurant.png'),
                           fit: BoxFit.cover)),
-                ))
+                ),
+            ),
           ],
         ),
       ),
