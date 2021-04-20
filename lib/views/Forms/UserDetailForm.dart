@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_ordering_app/animation/FadeAnimation.dart';
 
 class UserDetailForm extends StatefulWidget {
   @override
@@ -112,6 +113,22 @@ class _UserDetailFormState extends State<UserDetailForm> {
 
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
 
+              ),
+//              SizedBox(
+//                  height: 20.0,
+//              ),
+              FadeAnimation(
+                1.2,
+                Container(
+                  height: MediaQuery.of(context).size.height /2,
+
+                  decoration: BoxDecoration(
+
+                      image: DecorationImage(
+
+                          image: AssetImage('assets/Form.png'),
+                          fit: BoxFit.cover)),
+                ),
               ),
 
 

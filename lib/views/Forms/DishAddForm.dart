@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_ordering_app/animation/FadeAnimation.dart';
 
 class DishAddForm extends StatefulWidget {
   @override
@@ -192,6 +193,19 @@ class _DishAddFormState extends State<DishAddForm> {
 
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
 
+              ),
+              FadeAnimation(
+                1.2,
+                Container(
+                  height: MediaQuery.of(context).size.height /4,
+
+                  decoration: BoxDecoration(
+
+                      image: DecorationImage(
+
+                          image: AssetImage('assets/food.png'),
+                          fit: BoxFit.fitHeight)),
+                ),
               ),
 
               
