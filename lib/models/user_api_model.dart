@@ -1,18 +1,17 @@
-import 'package:food_ordering_app/models/dish_model.dart';
+import 'package:food_ordering_app/models/user_model.dart';
 
-class UserApi{
-  String status;
+class UserApi {
+  bool status;
   User user;
 
-  UserApi({
-    this.status,
-    this.user
-  });
+  UserApi({this.status, this.user});
 
-  factory UserApi.fromJson(Map<String, dynamic> parsedJson){
-  return UserApi(
-    status: parsedJson['status'],
-    user: User.fromJson(parsedJson['user'])
-  );
-}
+  factory UserApi.fromJson(Map<String, dynamic> parsedJson) {
+    return UserApi(
+      status: parsedJson['status'],
+      user: User.fromJson(
+        parsedJson['user'],
+      ),
+    );
+  }
 }

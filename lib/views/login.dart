@@ -99,7 +99,7 @@ class LoginPage extends StatelessWidget {
                             height: 60,
                             onPressed: () {
                               // Future currentUser =
-                              LoginUser(cusername.text, cpassword.text);
+                              LoginUser(cusername.text, cpassword.text,context);
                               // FutureBuilder<UserApi>(
                               //     future:
                               //         LoginUser(cusername.text, cpassword.text),
@@ -119,10 +119,10 @@ class LoginPage extends StatelessWidget {
                               //   ),
                               // );
 
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AdminDashboard()));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => AdminDashboard()));
                               // Navigator.of(context)
                               //   .pushReplacementNamed('signup/choose_credentials');
                             },
