@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
+import 'package:food_ordering_app/models/ApiError.dart';
+import 'package:food_ordering_app/models/ApiRespose.dart';
 import 'package:food_ordering_app/models/user_api_model.dart';
+import 'package:food_ordering_app/models/user_model.dart';
 import 'package:food_ordering_app/services/user_login_services.dart';
 import 'package:food_ordering_app/views/admin_dashboard.dart';
 import 'package:food_ordering_app/views/widgets/errorDialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController cusername = new TextEditingController();
@@ -98,33 +103,7 @@ class LoginPage extends StatelessWidget {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () {
-                              // Future currentUser =
-                              LoginUser(cusername.text, cpassword.text,context);
-                              // FutureBuilder<UserApi>(
-                              //     future:
-                              //         LoginUser(cusername.text, cpassword.text),
-                              //     builder: (BuildContext context,
-                              //         AsyncSnapshot snapshot) {
-                              //       if (snapshot.hasData) {
-                              //         if (_status(snapshot) == 'false') {
-                              //           print('login failed ');
-                              //         }
-                              //       }
-                              //       return;
-                              //     });
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => AlertWidget(),
-                              //   ),
-                              // );
-
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => AdminDashboard()));
-                              // Navigator.of(context)
-                              //   .pushReplacementNamed('signup/choose_credentials');
+                              handleSubmitted(context);
                             },
                             color: Colors.greenAccent,
                             elevation: 0,
@@ -155,14 +134,14 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             FadeAnimation(
-                1.2,
-                Container(
-                  height: MediaQuery.of(context).size.height / 3,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/restaurant.png'),
-                          fit: BoxFit.cover)),
-                ),
+              1.2,
+              Container(
+                height: MediaQuery.of(context).size.height / 3,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/restaurant.png'),
+                        fit: BoxFit.cover)),
+              ),
             ),
           ],
         ),
@@ -197,6 +176,43 @@ class LoginPage extends StatelessWidget {
           height: 30,
         ),
       ],
+    );
+  }
+
+  void handleSubmitted(BuildContext context) async {
+    print("reached handlesubmitted");
+    ApiResponse _apiResponse = await LoginUser(cusername.text, cpassword.text);
+    print(_apiResponse.ApiError);
+    if ((_apiResponse.ApiError as ApiError) == null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString("user_id", (_apiResponse.Data as User).user_id);
+      if ((_apiResponse.Data as User).isAdmin == 0) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/dash',
+          ModalRoute.withName('/dash'),
+        );
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/admindash',
+          ModalRoute.withName('/admindash'),
+        );
+      }
+    } else {
+      showToastMsg("Login Failed!");
+    }
+  }
+
+  void showToastMsg(String s) {
+    Fluttertoast.showToast(
+      msg: s,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
     );
   }
 }
