@@ -1,18 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:food_ordering_app/models/ApiError.dart';
-import 'package:food_ordering_app/models/user_model.dart';
-import 'package:food_ordering_app/views/widgets/msgToast.dart';
+import 'package:food_ordering_app/models/UserDetails.dart';
 import 'package:http/http.dart' as http;
+import 'package:food_ordering_app/models/ApiError.dart';
+import 'package:food_ordering_app/models/ApiRespose.dart';
+import 'package:food_ordering_app/models/user_model.dart';
 
-import '../models/ApiRespose.dart';
-
-
-Future<ApiResponse> LoginUser(String userName, String userPass) async {
+Future<ApiResponse> getUserDetails(String userId) async {
   ApiResponse _apiResponse = new ApiResponse();
-  print("reached login user");
-  Uri url = Uri.parse('http://192.168.43.27:8800/login');
-
+  Uri url = Uri.parse('http://192.168.43.27:8800/userdetails');
   try {
     final http.Response response = await http.post(
       url,
@@ -20,23 +16,21 @@ Future<ApiResponse> LoginUser(String userName, String userPass) async {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'user_id': userName,
-        'user_pass': userPass,
+        'user_id': userId,
       }),
     );
 
-    switch (response.statusCode) {
+     switch (response.statusCode) {
       case 200:
-        _apiResponse.Data = User.fromJson(json.decode(response.body));
-        showToastMsg('login Succesful');
+        _apiResponse.Data = UserDetails.fromJson(json.decode(response.body));
         break;
       case 401:
+        print((_apiResponse.ApiError as ApiError).error);
         _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-        // showToastMsg('login failed');
         break;
       default:
+        print((_apiResponse.ApiError as ApiError).error);
         _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-        // showToastMsg('login failed');
         break;
     }
   } on SocketException {
@@ -44,4 +38,3 @@ Future<ApiResponse> LoginUser(String userName, String userPass) async {
   }
   return _apiResponse;
 }
-

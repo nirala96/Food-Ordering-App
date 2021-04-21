@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:food_ordering_app/models/ApiError.dart';
+import 'package:food_ordering_app/models/ApiRespose.dart';
+import 'package:food_ordering_app/models/UserDetails.dart';
+import 'package:food_ordering_app/services/user_details_services.dart';
 import 'package:food_ordering_app/views/profile_screen.dart';
 import 'package:food_ordering_app/services/catalog_services.dart';
+import 'package:food_ordering_app/views/widgets/msgToast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:get_it/get_it.dart';
 import '../models/catalogmodel.dart';
@@ -18,10 +24,9 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
         leading: new IconButton(
-          icon: new Icon(Icons.dehaze),
+          icon: new Icon(Icons.account_circle),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ProfileScreen()));
+            _ProfileHandler(context);
           },
         ),
 //        leading: Icon(
@@ -43,6 +48,36 @@ class _DashboardState extends State<Dashboard> {
       ),
       body: CatalogList(),
     );
+  }
+}
+
+void _ProfileHandler(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String _userId = (prefs.getString("user_id") ?? "");
+  if (_userId == "") {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      '/home',
+      ModalRoute.withName('/home'),
+    );
+    showToastMsg("invalid Login State!");
+  } else {
+    ApiResponse _apiResponse = await getUserDetails(_userId);
+    if ((_apiResponse.ApiError as ApiError) == null) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/profile',
+        ModalRoute.withName('/profile'),
+        arguments: (_apiResponse.Data as UserDetails),
+      );
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/home',
+        ModalRoute.withName('/home'),
+      );
+      showToastMsg("invalid Login State!");
+    }
   }
 }
 

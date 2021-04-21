@@ -1,128 +1,46 @@
-
-
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:food_ordering_app/animation/FadeAnimation.dart';
-import 'package:food_ordering_app/views/login.dart';
-import 'package:food_ordering_app/views/profile_screen.dart';
-import 'Forms/DishAddForm.dart';
-import 'package:food_ordering_app/views/signup.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'dart:convert';
+import 'package:food_ordering_app/models/ApiError.dart';
+import 'package:food_ordering_app/models/ApiRespose.dart';
+import 'package:food_ordering_app/models/UserDetails.dart';
+import 'package:food_ordering_app/models/user_model.dart';
+import 'package:food_ordering_app/services/user_details_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatelessWidget {
-  Future<List> getData() async {
-    final response = await http.get(
-        Uri.parse("http://192.168.43.185/flutter-login-signup/getdata.php"));
-    return json.decode(response.body);
+class Landing extends StatefulWidget {
+  @override
+  _LandingState createState() => _LandingState();
+}
+
+class _LandingState extends State<Landing> {
+  String _userId = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserInfo();
   }
+
+  _loadUserInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _userId = (prefs.getString("user_id") ?? "");
+    if (_userId == "") {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/home',
+        ModalRoute.withName('/home'),
+      );
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/dash',
+        ModalRoute.withName('/dash'),
+      );
+    }
+  }
+  
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  FadeAnimation(
-                      1,
-                      Text(
-                        "Food ordering App",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 30),
-                      )),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  FadeAnimation(
-                      1.2,
-                      Text(
-                        "Please verify yourself and enjoy",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.grey[700], fontSize: 15),
-                      )),
-                ],
-              ),
-              FadeAnimation(
-                  1.4,
-                  Container(
-                    height: MediaQuery.of(context).size.height / 3,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/delivery.png'))),
-                  )),
-              Column(
-                children: <Widget>[
-                  FadeAnimation(
-                      1.5,
-                      MaterialButton(
-                        minWidth: double.infinity,
-                        height: 60,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
-                        },
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 18),
-                        ),
-                      )),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  FadeAnimation(
-                      1.6,
-                      Container(
-                        padding: EdgeInsets.only(top: 3, left: 3),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border(
-                              bottom: BorderSide(color: Colors.black),
-                              top: BorderSide(color: Colors.black),
-                              left: BorderSide(color: Colors.black),
-                              right: BorderSide(color: Colors.black),
-                            )),
-                        child: MaterialButton(
-                          minWidth: double.infinity,
-                          height: 60,
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignupPage()));
-                          },
-                          color: Colors.yellow,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Text(
-                            "Sign up",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 18),
-                          ),
-                        ),
-                      ))
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+    return Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }

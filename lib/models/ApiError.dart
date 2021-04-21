@@ -1,4 +1,3 @@
-import 'package:food_ordering_app/models/dish_model.dart';
 
 class ApiError {
   String _error;

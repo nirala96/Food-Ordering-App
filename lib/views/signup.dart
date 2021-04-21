@@ -1,24 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
+import 'package:food_ordering_app/models/ApiError.dart';
+import 'package:food_ordering_app/models/ApiRespose.dart';
 import 'package:food_ordering_app/services/user_signup_services.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'dart:convert';
+import 'package:food_ordering_app/views/widgets/msgToast.dart';
+
 
 class SignupPage extends StatelessWidget {
   TextEditingController cusername = new TextEditingController();
   TextEditingController cname = new TextEditingController();
   TextEditingController cpassword = new TextEditingController();
-
-  // void addData() {
-  //   var url =
-  //       Uri.parse("http://192.168.43.185/flutter-login-signup/adddata.php");
-  //   http.post(url, body: {
-  //     "username": cusername.text,
-  //     "password": cpassword.text,
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +107,7 @@ class SignupPage extends StatelessWidget {
                       minWidth: double.infinity,
                       height: 50,
                       onPressed: () {
-                        signupUser(cusername.text, cname.text, cpassword.text);
+                        handleSignup(context);
                       },
                       color: Colors.greenAccent,
                       elevation: 0,
@@ -178,5 +170,25 @@ class SignupPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void handleSignup(BuildContext context) async {
+    print("reached handlesubmitted");
+    ApiResponse _apiResponse = await signupUser(
+      cusername.text,
+      cname.text,
+      cpassword.text,
+    );
+
+    print(_apiResponse.ApiError);
+    if ((_apiResponse.ApiError as ApiError) == null) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/login',
+        ModalRoute.withName('/login'),
+      );
+    } else {
+      showToastMsg("Signup Failed!");
+    }
   }
 }

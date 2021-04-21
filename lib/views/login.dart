@@ -3,11 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
-import 'package:food_ordering_app/models/user_api_model.dart';
 import 'package:food_ordering_app/models/user_model.dart';
 import 'package:food_ordering_app/services/user_login_services.dart';
-import 'package:food_ordering_app/views/admin_dashboard.dart';
-import 'package:food_ordering_app/views/widgets/errorDialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
