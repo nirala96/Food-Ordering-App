@@ -10,6 +10,10 @@ class _DishAddFormState extends State<DishAddForm> {
 
   String IsAvailable = '';
   String colorGroupValue = '';
+  String valueChoose;
+  List listItem = [
+    "starter","main course","desserts"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -153,20 +157,50 @@ class _DishAddFormState extends State<DishAddForm> {
 
               Card(
 
-                child: TextField(
+                child: DropdownButton(
+                  hint: Text("Select Dish Type"),
+                  dropdownColor: Colors.white,
+                  icon: Icon(Icons.arrow_drop_down),
+                  iconSize: 36,
+                  isExpanded: true,
+                  underline: SizedBox(),
                   style: TextStyle(
                     color: Colors.black,
+                    fontSize:15
                   ),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Color(0xffEEEEEE),
-                    labelText: "Dish Type",
-                  ),
-                  onChanged: (value) {
+                  value:valueChoose,
+                  onChanged: (newValue){
+                    setState(() {
+                      valueChoose = newValue;
+                    });
 
                   },
+                  items: listItem.map((valueItem){
+                    return DropdownMenuItem(
+                      value: valueItem,
+                      child: Text(valueItem),
 
+
+                    );
+
+                  }).toList(),
                 ),
+
+
+//                child: TextField(
+//                  style: TextStyle(
+//                    color: Colors.black,
+//                  ),
+//                  decoration: InputDecoration(
+//                    filled: true,
+//                    fillColor: Color(0xffEEEEEE),
+//                    labelText: "Dish Type",
+//                  ),
+//                  onChanged: (value) {
+//
+//                  },
+//
+//                ),
 
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
 
