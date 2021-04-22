@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:food_ordering_app/models/catalogmodel.dart';
+import 'package:food_ordering_app/models/Dish.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'CatalogImage.dart';
 
 class CatalogItemUser extends StatelessWidget {
-  final CatalogModel catalog;
+  // final DishList catalog;
+  final Dish dish;
 
-  const CatalogItemUser({Key key, @required this.catalog})
-      : assert(catalog != null),
+  const CatalogItemUser({Key key, @required this.dish})
+      : assert(dish != null),
         super(key: key);
 
   @override
@@ -17,9 +18,9 @@ class CatalogItemUser extends StatelessWidget {
         child: Row(
       children: [
         Hero(
-          tag: Key(catalog.id.toString()),
+          tag: Key(dish.dish_id.toString()),
           child: CatalogImage(
-            image: catalog.image,
+            image: "https://static.toiimg.com/thumb/53110049.cms?width=1200&height=900",
           ),
         ),
         Expanded(
@@ -27,8 +28,8 @@ class CatalogItemUser extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            catalog.title.text.lg.color(Color(0xff403b58)).bold.make(),
-            catalog.type.text
+            dish.dish_name.text.lg.color(Color(0xff403b58)).bold.make(),
+            dish.dish_type.text
                 .textStyle(context.captionStyle)
                 .color(Color(0xff403b58))
                 .make(),
@@ -37,8 +38,8 @@ class CatalogItemUser extends StatelessWidget {
               alignment: MainAxisAlignment.spaceBetween,
               buttonPadding: EdgeInsets.zero,
               children: [
-                "\$${catalog.price}".text.xl.bold.make(),
-                AddToCart(catalog: catalog),
+                "\$${dish.dish_price}".text.xl.bold.make(),
+                AddToCart(),
               ],
             ).pOnly(right: 8.0)
           ],
@@ -49,10 +50,8 @@ class CatalogItemUser extends StatelessWidget {
 }
 
 class AddToCart extends StatelessWidget {
-  final CatalogModel catalog;
   AddToCart({
     Key key,
-    this.catalog,
   }) : super(key: key);
 
   //bool isInCart = false;
@@ -63,7 +62,7 @@ class AddToCart extends StatelessWidget {
     // VxState.watch(context, on: [AddMutation, RemoveMutation]);
 
     // final CartModel _cart = (VxState.store as MyStore).cart;
-    //  final CatalogModel _catalog = (VxState.store as MyStore).catalog;
+    //  final DishList _catalog = (VxState.store as MyStore).catalog;
 
     //bool isInCart = _cart.items.contains(catalog)?? false;
 

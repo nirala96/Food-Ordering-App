@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
+import 'package:food_ordering_app/models/DishList.dart';
 import 'package:food_ordering_app/models/UserDetails.dart';
-import 'package:food_ordering_app/models/catalogmodel.dart';
-import 'package:food_ordering_app/services/catalog_services.dart';
 import 'package:food_ordering_app/services/user_details_services.dart';
 import 'package:food_ordering_app/views/widgets/CatalogItemUser.dart';
 import 'package:food_ordering_app/views/widgets/msgToast.dart';
-import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatefulWidget {
@@ -17,8 +15,15 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  DishList futDishList;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final DishList args = ModalRoute.of(context).settings.arguments as DishList;
     return Scaffold(
       backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
@@ -30,13 +35,10 @@ class _DashboardState extends State<Dashboard> {
         ),
         title: new Text("Swiggato - DashBoard"),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-              })
+          IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
       ),
-      body: CatalogList(),
+      body: CatalogList(dishList: args),
     );
   }
 }
@@ -71,34 +73,19 @@ void _ProfileHandler(BuildContext context) async {
   }
 }
 
-class CatalogList extends StatefulWidget {
-  @override
-  _CatalogListState createState() => _CatalogListState();
-}
+class CatalogList extends StatelessWidget {
+  final DishList dishList;
 
-class _CatalogListState extends State<CatalogList> {
-  CatalogServices get service => GetIt.I<CatalogServices>();
-
-  List<CatalogModel> items = [];
-
-  @override
-  void initState() {
-    items = CatalogServices.getCatalogList();
-    super.initState();
-  }
-
+  CatalogList({Key key, this.dishList});
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        shrinkWrap: true,
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final catalog = items[index];
-          return InkWell(
-            child: CatalogItemUser(catalog: catalog),
-            //  onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeDetailPage(catalog: catalog,))),
-          );
-        });
+      shrinkWrap: true,
+      itemCount: dishList.length,
+      itemBuilder: (context, index) {
+        return CatalogItemUser(dish: dishList.getIndex(index));
+      },
+    );
   }
 }
 

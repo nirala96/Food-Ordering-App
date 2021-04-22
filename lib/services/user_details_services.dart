@@ -4,7 +4,6 @@ import 'package:food_ordering_app/models/UserDetails.dart';
 import 'package:http/http.dart' as http;
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
-import 'package:food_ordering_app/models/user_model.dart';
 
 Future<ApiResponse> getUserDetails(String userId) async {
   ApiResponse _apiResponse = new ApiResponse();

@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_ordering_app/models/ApiError.dart';
-import 'package:food_ordering_app/models/ApiRespose.dart';
-import 'package:food_ordering_app/models/UserDetails.dart';
-import 'package:food_ordering_app/models/user_model.dart';
-import 'package:food_ordering_app/services/user_details_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Landing extends StatefulWidget {
@@ -32,8 +27,8 @@ class _LandingState extends State<Landing> {
     } else {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        '/dash',
-        ModalRoute.withName('/dash'),
+        '/loadingDash',
+        ModalRoute.withName('/loadingDash'),
       );
     }
   }

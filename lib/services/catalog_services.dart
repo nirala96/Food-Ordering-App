@@ -1,4 +1,4 @@
-import 'package:food_ordering_app/models/catalogmodel.dart';
+import 'package:food_ordering_app/models/CatalogModel.dart';
 
 class CatalogServices {
   static List<CatalogModel> getCatalogList() {

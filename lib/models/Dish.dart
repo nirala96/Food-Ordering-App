@@ -6,8 +6,14 @@ class Dish {
   final String dish_type;
   final String dish_rest_id;
 
-  Dish(this.dish_id, this.dish_name, this.dish_price, this.isAvailable,
-      this.dish_type, this.dish_rest_id);
+  Dish(
+    this.dish_id,
+    this.dish_name,
+    this.dish_price,
+    this.isAvailable,
+    this.dish_type,
+    this.dish_rest_id,
+  );
   factory Dish.fromMap(Map<String, dynamic> json) {
     return Dish(
       json['dish_id'],

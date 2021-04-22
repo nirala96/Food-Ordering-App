@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
-import 'package:food_ordering_app/models/user_model.dart';
+import 'package:food_ordering_app/models/User.dart';
 import 'package:food_ordering_app/views/widgets/msgToast.dart';
 import 'package:http/http.dart' as http;
 

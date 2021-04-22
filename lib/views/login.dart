@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
-import 'package:food_ordering_app/models/user_model.dart';
+import 'package:food_ordering_app/models/User.dart';
 import 'package:food_ordering_app/services/user_login_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -183,19 +183,22 @@ class LoginPage extends StatelessWidget {
     if ((_apiResponse.ApiError as ApiError) == null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString("user_id", (_apiResponse.Data as User).user_id);
-      if ((_apiResponse.Data as User).isAdmin == 0) {
+      int isadminstored = (_apiResponse.Data as User).isAdmin;
+      // if ((_apiResponse.Data as User).isAdmin == 0) {
+      //   Navigator.pushNamedAndRemoveUntil(
+      //     context,
+      //     '/loadingDash',
+      //     ModalRoute.withName('/loadingDash'),
+      //     arguments: isadminstored,
+      //   );
+      // } else {
         Navigator.pushNamedAndRemoveUntil(
           context,
-          '/dash',
-          ModalRoute.withName('/dash'),
+          '/loadingDash',
+          ModalRoute.withName('/loadingDash'),
+          arguments: isadminstored,
         );
-      } else {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          '/admindash',
-          ModalRoute.withName('/admindash'),
-        );
-      }
+      // }
     } else {
       showToastMsg("Login Failed!");
     }
