@@ -120,6 +120,9 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                   child: ListTile(
+                    onTap: (){
+                      showAlertDialog(context);
+                    },
                     leading: Icon(
                       Icons.logout,
                       color: Colors.white,
@@ -143,4 +146,35 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+
+
+
+showAlertDialog(BuildContext context) {
+  // Create button
+  Widget okButton = TextButton(
+    child: Text("Yes"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+
+  );
+
+  // Create AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Logout"),
+    content: Text("Are you sure you want to Logout?"),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
