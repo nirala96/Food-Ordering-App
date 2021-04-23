@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_ordering_app/models/Dish.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'CatalogImage.dart';
+import '../../widgets/CatalogImage.dart';
 
 class CatalogItemUser extends StatelessWidget {
   // final DishList catalog;

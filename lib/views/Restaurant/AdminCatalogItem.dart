@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_ordering_app/Forms/DishEditForm.dart';
 import 'package:food_ordering_app/models/Dish.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'CatalogImage.dart';
+import '../../widgets/CatalogImage.dart';
 
 class CatalogItemAdmin extends StatelessWidget {
   final Dish dish;
@@ -52,7 +53,10 @@ class EditButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>DishEditForm()),
+        );
+      },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
           Vx.indigo500,

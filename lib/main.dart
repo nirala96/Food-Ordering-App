@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_ordering_app/views/LandingPage.dart';
-import 'package:food_ordering_app/views/dishLoadingScreen.dart';
-import 'package:food_ordering_app/views/profile_screen.dart';
-import 'views/Dashboard.dart';
-import 'views/admin_dashboard.dart';
-import 'views/login.dart';
+import 'package:food_ordering_app/views/DashboardLoader.dart';
+import 'package:food_ordering_app/views/ProfilePage.dart';
+import 'views/User/UserDashboard.dart';
+import 'views/Restaurant/AdminDashboard.dart';
+import 'views/LoginPage.dart';
 import 'views/HomePage.dart';
 
 void main() => runApp(MyApp());

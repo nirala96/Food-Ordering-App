@@ -4,7 +4,7 @@ import 'package:food_ordering_app/animation/FadeAnimation.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
 import 'package:food_ordering_app/models/User.dart';
-import 'package:food_ordering_app/services/user_login_services.dart';
+import 'package:food_ordering_app/services/UserServices.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
@@ -178,7 +178,8 @@ class LoginPage extends StatelessWidget {
 
   void handleSubmitted(BuildContext context) async {
     print("reached handlesubmitted");
-    ApiResponse _apiResponse = await LoginUser(cusername.text, cpassword.text);
+    UserServices userServices = new UserServices();
+    ApiResponse _apiResponse = await userServices.login(cusername.text, cpassword.text);
     print(_apiResponse.ApiError);
     if ((_apiResponse.ApiError as ApiError) == null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -192,12 +193,12 @@ class LoginPage extends StatelessWidget {
       //     arguments: isadminstored,
       //   );
       // } else {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          '/loadingDash',
-          ModalRoute.withName('/loadingDash'),
-          arguments: isadminstored,
-        );
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/loadingDash',
+        ModalRoute.withName('/loadingDash'),
+        arguments: isadminstored,
+      );
       // }
     } else {
       showToastMsg("Login Failed!");

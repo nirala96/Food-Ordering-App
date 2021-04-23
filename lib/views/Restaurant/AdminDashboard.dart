@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:food_ordering_app/Forms/DishAddForm.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
 import 'package:food_ordering_app/models/DishList.dart';
 import 'package:food_ordering_app/models/UserDetails.dart';
-import 'package:food_ordering_app/services/user_details_services.dart';
-import 'package:food_ordering_app/views/widgets/msgToast.dart';
+import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/views/Restaurant/AdminCatalogItem.dart';
+import 'package:food_ordering_app/widgets/msgToast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Forms/DishAddForm.dart';
-import 'widgets/CatalogItemAdmin.dart';
 
 class AdminDashboard extends StatefulWidget {
   @override
@@ -54,9 +54,10 @@ void _ProfileHandler(BuildContext context) async {
       '/home',
       ModalRoute.withName('/home'),
     );
-    showToastMsg("invalid Login State!");
+    msgToast("invalid Login State!");
   } else {
-    ApiResponse _apiResponse = await getUserDetails(_userId);
+    UserServices userServices = new UserServices();
+    ApiResponse _apiResponse = await userServices.details(_userId);
     if ((_apiResponse.ApiError as ApiError) == null) {
       Navigator.pushNamedAndRemoveUntil(
         context,
@@ -70,7 +71,7 @@ void _ProfileHandler(BuildContext context) async {
         '/home',
         ModalRoute.withName('/home'),
       );
-      showToastMsg("invalid Login State!");
+      msgToast("invalid Login State!");
     }
   }
 }

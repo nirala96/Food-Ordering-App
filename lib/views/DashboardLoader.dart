@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
 import 'package:food_ordering_app/models/DishList.dart';
-import 'package:food_ordering_app/services/dish_services.dart';
+import 'package:food_ordering_app/services/RestServices.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter/material.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -15,7 +14,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   int args;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getDishData();
   }

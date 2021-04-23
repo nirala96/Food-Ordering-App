@@ -4,9 +4,9 @@ import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
 import 'package:food_ordering_app/models/DishList.dart';
 import 'package:food_ordering_app/models/UserDetails.dart';
-import 'package:food_ordering_app/services/user_details_services.dart';
-import 'package:food_ordering_app/views/widgets/CatalogItemUser.dart';
-import 'package:food_ordering_app/views/widgets/msgToast.dart';
+import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/views/User/UserCatalogItem.dart';
+import 'package:food_ordering_app/widgets/msgToast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatefulWidget {
@@ -52,9 +52,10 @@ void _ProfileHandler(BuildContext context) async {
       '/home',
       ModalRoute.withName('/home'),
     );
-    showToastMsg("invalid Login State!");
+    msgToast("invalid Login State!");
   } else {
-    ApiResponse _apiResponse = await getUserDetails(_userId);
+    UserServices userServices = new UserServices();
+    ApiResponse _apiResponse = await userServices.details(_userId);
     if ((_apiResponse.ApiError as ApiError) == null) {
       Navigator.pushNamedAndRemoveUntil(
         context,
@@ -68,7 +69,7 @@ void _ProfileHandler(BuildContext context) async {
         '/home',
         ModalRoute.withName('/home'),
       );
-      showToastMsg("invalid Login State!");
+      msgToast("invalid Login State!");
     }
   }
 }
@@ -88,5 +89,3 @@ class CatalogList extends StatelessWidget {
     );
   }
 }
-
-

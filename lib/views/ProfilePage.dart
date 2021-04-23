@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_ordering_app/Forms/UserDetailForm.dart';
 import 'package:food_ordering_app/models/UserDetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Forms/UserDetailForm.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserDetails args =
         ModalRoute.of(context).settings.arguments as UserDetails;
+    
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Color(0xff212121),
@@ -187,6 +188,6 @@ showAlertDialog(BuildContext context) {
 void _logoutHandler(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove('user_id');
-  // TODO: use /home here
-  Navigator.pushNamedAndRemoveUntil(context, '/', ModalRoute.withName('/'));
+  Navigator.pushNamedAndRemoveUntil(
+      context, '/home', ModalRoute.withName('/home'));
 }

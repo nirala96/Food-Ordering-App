@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
-import 'package:food_ordering_app/services/user_signup_services.dart';
-import 'package:food_ordering_app/views/widgets/msgToast.dart';
-
+import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/widgets/msgToast.dart';
 
 class SignupPage extends StatelessWidget {
   TextEditingController cusername = new TextEditingController();
@@ -174,7 +173,8 @@ class SignupPage extends StatelessWidget {
 
   void handleSignup(BuildContext context) async {
     print("reached handlesubmitted");
-    ApiResponse _apiResponse = await signupUser(
+    UserServices userServices = new UserServices();
+    ApiResponse _apiResponse = await userServices.signup(
       cusername.text,
       cname.text,
       cpassword.text,
@@ -188,7 +188,7 @@ class SignupPage extends StatelessWidget {
         ModalRoute.withName('/login'),
       );
     } else {
-      showToastMsg("Signup Failed!");
+      msgToast("Signup Failed!");
     }
   }
 }
