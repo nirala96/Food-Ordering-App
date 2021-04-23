@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/Forms/DishEditForm.dart';
 import 'package:food_ordering_app/models/Dish.dart';
+import 'package:food_ordering_app/views/Forms/DishEditForm.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../widgets/CatalogImage.dart';
