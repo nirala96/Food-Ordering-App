@@ -5,12 +5,12 @@ import 'package:food_ordering_app/models/DishList.dart';
 import 'package:food_ordering_app/services/RestServices.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class LoadingScreen extends StatefulWidget {
+class DashboardLoader extends StatefulWidget {
   @override
-  _LoadingScreenState createState() => _LoadingScreenState();
+  _DashboardLoaderState createState() => _DashboardLoaderState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> {
+class _DashboardLoaderState extends State<DashboardLoader> {
   int args;
   @override
   void initState() {

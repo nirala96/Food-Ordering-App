@@ -188,15 +188,15 @@ class LoginPage extends StatelessWidget {
       // if ((_apiResponse.Data as User).isAdmin == 0) {
       //   Navigator.pushNamedAndRemoveUntil(
       //     context,
-      //     '/loadingDash',
-      //     ModalRoute.withName('/loadingDash'),
+      //     '/loadDash',
+      //     ModalRoute.withName('/loadDash'),
       //     arguments: isadminstored,
       //   );
       // } else {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        '/loadingDash',
-        ModalRoute.withName('/loadingDash'),
+        '/loadDash',
+        ModalRoute.withName('/loadDash'),
         arguments: isadminstored,
       );
       // }

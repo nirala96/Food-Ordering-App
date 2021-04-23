@@ -39,6 +39,13 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
       body: CatalogList(dishList: args),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+//          Navigator.push(
+//              context, MaterialPageRoute(builder: (context) => DishAddForm()));
+        },
+        child: Icon(Icons.shopping_cart),
+      ),
     );
   }
 }
@@ -57,10 +64,9 @@ void _ProfileHandler(BuildContext context) async {
     UserServices userServices = new UserServices();
     ApiResponse _apiResponse = await userServices.details(_userId);
     if ((_apiResponse.ApiError as ApiError) == null) {
-      Navigator.pushNamedAndRemoveUntil(
+      Navigator.pushNamed(
         context,
         '/profile',
-        ModalRoute.withName('/profile'),
         arguments: (_apiResponse.Data as UserDetails),
       );
     } else {

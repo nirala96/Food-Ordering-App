@@ -13,4 +13,11 @@ class User {
     return User(
         json['user_id'], json['user_name'], json['user_pass'], json['isAdmin']);
   }
+
+  Map<String, dynamic> toJson() => {
+        'user_id': user_id,
+        'user_name': user_name,
+        'user_pass': user_pass,
+        'isAdmin': isAdmin
+      };
 }

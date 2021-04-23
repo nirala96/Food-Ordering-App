@@ -23,7 +23,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
       backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
         leading: new IconButton(
-          icon: new Icon(Icons.dehaze),
+          icon: new Icon(Icons.account_circle),
           onPressed: () {
             _ProfileHandler(context);
           },
