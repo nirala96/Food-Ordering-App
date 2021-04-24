@@ -8,6 +8,25 @@ class DishEditForm extends StatefulWidget {
 
 class _DishEditFormState extends State<DishEditForm> {
 
+  //TextEditingController DishID=new TextEditingController();
+  TextEditingController DishName=new TextEditingController();
+  TextEditingController DishPrice=new TextEditingController();
+
+
+  
+  //For your reference Aashish/kapil
+
+//  Future<List> senddata() async {
+//    final response = await http.post("", body: {
+//      "name": name.text,
+//      "email": email.text,
+//      "mobile":mobile.text,
+//    });
+//  }
+  
+  
+  
+
   String IsAvailable = '';
   String colorGroupValue = '';
   String valueChoose;
@@ -40,6 +59,7 @@ class _DishEditFormState extends State<DishEditForm> {
 
 
               child: TextField(
+                controller: DishName,
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -63,6 +83,7 @@ class _DishEditFormState extends State<DishEditForm> {
 
 
               child: TextField(
+                controller: DishPrice,
                 style: TextStyle(
                   color: Colors.black,
                 ),
