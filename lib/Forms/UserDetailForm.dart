@@ -8,6 +8,23 @@ class UserDetailForm extends StatefulWidget {
 
 class _UserDetailFormState extends State<UserDetailForm> {
 
+  TextEditingController UserID=new TextEditingController();
+  TextEditingController Email=new TextEditingController();
+  TextEditingController Phone=new TextEditingController();
+
+
+//For your reference Aashish/kapil
+
+//  Future<List> senddata() async {
+//    final response = await http.post("http://raushanjha.in/insertdata.php", body: {
+//      "name": name.text,
+//      "email": email.text,
+//      "mobile":mobile.text,
+//    });
+//  }
+  
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +49,7 @@ class _UserDetailFormState extends State<UserDetailForm> {
               Card(
 
                 child: TextField(
+                  controller: UserID,
                   style: TextStyle(
                     color: Colors.black,
                   ),
@@ -73,6 +91,7 @@ class _UserDetailFormState extends State<UserDetailForm> {
 
 
                 child: TextField(
+                  controller: Email,
                   style: TextStyle(
                     color: Colors.black,
                   ),
@@ -96,6 +115,7 @@ class _UserDetailFormState extends State<UserDetailForm> {
 
 
                 child: TextField(
+                  controller: Phone,
                   style: TextStyle(
                     color: Colors.black,
                   ),
