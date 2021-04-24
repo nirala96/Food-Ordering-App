@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
+import 'package:food_ordering_app/models/ApiError.dart';
+import 'package:food_ordering_app/models/ApiRespose.dart';
+import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/widgets/msgToast.dart';
 
 class UserDetailForm extends StatefulWidget {
   @override
@@ -11,20 +15,9 @@ class _UserDetailFormState extends State<UserDetailForm> {
   TextEditingController UserID=new TextEditingController();
   TextEditingController Email=new TextEditingController();
   TextEditingController Phone=new TextEditingController();
+  TextEditingController Address=new TextEditingController();
+  TextEditingController Pincode=new TextEditingController();
 
-
-//For your reference Aashish/kapil
-
-//  Future<List> senddata() async {
-//    final response = await http.post("http://raushanjha.in/insertdata.php", body: {
-//      "name": name.text,
-//      "email": email.text,
-//      "mobile":mobile.text,
-//    });
-//  }
-  
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +127,53 @@ class _UserDetailFormState extends State<UserDetailForm> {
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
 
               ),
+
+              Card(
+
+
+                child: TextField(
+                  controller: Address,
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xffEEEEEE),
+                    labelText: "Address",
+                  ),
+                  onChanged: (value) {
+
+                  },
+
+                ),
+
+
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
+
+              ),
+              Card(
+
+
+                child: TextField(
+                  controller: Pincode,
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xffEEEEEE),
+                    labelText: "Pincode",
+                  ),
+                  onChanged: (value) {
+
+                  },
+
+                ),
+
+
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
+
+              ),
 //              SizedBox(
 //                  height: 20.0,
 //              ),
@@ -156,9 +196,36 @@ class _UserDetailFormState extends State<UserDetailForm> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {  },
+          onPressed: () {
+            handleDetails(context);
+          },
             child: Icon(Icons.save),
     ),
     );
   }
+
+  void handleDetails(BuildContext context) async {
+    print("reached handlesubmitted");
+    UserServices userServices = new UserServices();
+    ApiResponse _apiResponse = await userServices.user_detail_form(
+        UserID.text,
+        Email.text,
+        Phone.text,
+        Address.text,
+        Pincode.text
+
+    );
+
+    print(_apiResponse.ApiError);
+    if ((_apiResponse.ApiError as ApiError) == null) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/admindash',
+        ModalRoute.withName('/admindash'),
+      );
+    } else {
+      msgToast("DishAdd Failed!");
+    }
+  }
+
 }

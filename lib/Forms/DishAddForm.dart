@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
+import 'package:food_ordering_app/models/ApiError.dart';
+import 'package:food_ordering_app/models/ApiRespose.dart';
+import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/widgets/msgToast.dart';
 
 class DishAddForm extends StatefulWidget {
   @override
@@ -12,22 +16,6 @@ class _DishAddFormState extends State<DishAddForm> {
   TextEditingController DishName=new TextEditingController();
   TextEditingController DishPrice=new TextEditingController();
   TextEditingController RestaurantID=new TextEditingController();
-
-
-//  for your reference aashish/kapil
-
-//  Future<List> senddata() async {
-//    final response = await http.post("", body: {
-//      "name": DishID.text,
-//      "Dish_name": DishName.text,
-//      "mobile":mobile.text,
-//    });
-//  }
-//
-
-
-
-
   String IsAvailable = '';
   String colorGroupValue = '';
   String valueChoose;
@@ -265,11 +253,36 @@ class _DishAddFormState extends State<DishAddForm> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-//                senddata;   (For your reference aashish/kapil)
+          handleDishAdd(context);
         },
         child: Icon(Icons.save),
       ),
     );
   }
-}
 
+  void handleDishAdd(BuildContext context) async {
+    print("reached handlesubmitted");
+    UserServices userServices = new UserServices();
+    ApiResponse _apiResponse = await userServices.dish_add_form(
+      DishID.text,
+      DishName.text,
+      DishPrice.text,
+      IsAvailable,
+      RestaurantID.text,
+      valueChoose
+
+    );
+
+    print(_apiResponse.ApiError);
+    if ((_apiResponse.ApiError as ApiError) == null) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/admindash',
+        ModalRoute.withName('/admindash'),
+      );
+    } else {
+      msgToast("DishAdd Failed!");
+    }
+  }
+
+}

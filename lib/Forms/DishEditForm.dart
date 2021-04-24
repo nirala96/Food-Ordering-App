@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
+import 'package:food_ordering_app/models/ApiError.dart';
+import 'package:food_ordering_app/models/ApiRespose.dart';
+import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/widgets/msgToast.dart';
 
 class DishEditForm extends StatefulWidget {
   @override
@@ -8,24 +12,9 @@ class DishEditForm extends StatefulWidget {
 
 class _DishEditFormState extends State<DishEditForm> {
 
-  //TextEditingController DishID=new TextEditingController();
   TextEditingController DishName=new TextEditingController();
   TextEditingController DishPrice=new TextEditingController();
 
-
-  
-  //For your reference Aashish/kapil
-
-//  Future<List> senddata() async {
-//    final response = await http.post("", body: {
-//      "name": name.text,
-//      "email": email.text,
-//      "mobile":mobile.text,
-//    });
-//  }
-  
-  
-  
 
   String IsAvailable = '';
   String colorGroupValue = '';
@@ -208,11 +197,37 @@ class _DishEditFormState extends State<DishEditForm> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {  },
+        onPressed: () {
+          handleDishEdit(context);
+        },
         child: Icon(Icons.save),
       ),
     );
   }
+
+  void handleDishEdit(BuildContext context) async {
+    print("reached handlesubmitted");
+    UserServices userServices = new UserServices();
+    ApiResponse _apiResponse = await userServices.dish_edit_form(
+        DishName.text,
+        DishPrice.text,
+        IsAvailable,
+        valueChoose
+
+    );
+
+    print(_apiResponse.ApiError);
+    if ((_apiResponse.ApiError as ApiError) == null) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/admindash',
+        ModalRoute.withName('/admindash'),
+      );
+    } else {
+      msgToast("DishAdd Failed!");
+    }
+  }
+
 }
 
 
@@ -251,4 +266,7 @@ showAlertDialog(BuildContext context) {
       return alert;
     },
   );
+
+
 }
+
