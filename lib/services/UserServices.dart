@@ -43,7 +43,6 @@ class UserServices {
 
   Future<ApiResponse> login(String userName, String userPass) async {
     ApiResponse _apiResponse = new ApiResponse();
-    print("reached login user");
     Uri url = Uri.parse('http://192.168.43.27:8800/login');
 
     try {
@@ -65,11 +64,9 @@ class UserServices {
           break;
         case 401:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
         default:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
       }
     } on SocketException {
@@ -82,7 +79,6 @@ class UserServices {
       String userId, String username, String userPass) async {
     int isAdmin = 0;
     ApiResponse _apiResponse = new ApiResponse();
-    print("reached signup user");
     Uri url = Uri.parse('http://192.168.43.27:8800/login/newuser');
     try {
       final http.Response response = await http.post(
@@ -105,11 +101,9 @@ class UserServices {
           break;
         case 409:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
         default:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
       }
     } on SocketException {
@@ -121,7 +115,6 @@ class UserServices {
   Future<ApiResponse> dish_add_form(String dish_id, String dish_name, String dish_price, String isAvailable, String restaurant_id, String dish_type) async {
 //    int isAvailable= 0;
     ApiResponse _apiResponse = new ApiResponse();
-    print("reached dish add user");
     ///////////isko dekho kon sa api hai
     Uri url = Uri.parse('http://192.168.43.27:8800/login/newuser');
     try {
@@ -147,11 +140,9 @@ class UserServices {
           break;
         case 409:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
         default:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
       }
     } on SocketException {
@@ -164,7 +155,6 @@ class UserServices {
   Future<ApiResponse> dish_edit_form(String dish_name, String dish_price, String isAvailable, String dish_type) async {
 //    int isAvailable= 0;
     ApiResponse _apiResponse = new ApiResponse();
-    print("reached edit dish user");
     ///////////isko dekho kon sa api hai
     Uri url = Uri.parse('http://192.168.43.27:8800/login/newuser');
     try {
@@ -188,11 +178,9 @@ class UserServices {
           break;
         case 409:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
         default:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
       }
     } on SocketException {
@@ -205,7 +193,6 @@ class UserServices {
   Future<ApiResponse> user_detail_form(String user_id, String email, String phone, String address, String pincode) async {
 //    int isAvailable= 0;
     ApiResponse _apiResponse = new ApiResponse();
-    print("reached edit dish user");
     ///////////isko dekho kon sa api hai
     Uri url = Uri.parse('http://192.168.43.27:8800/login/newuser');
     try {
@@ -230,11 +217,9 @@ class UserServices {
           break;
         case 409:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
         default:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
           break;
       }
     } on SocketException {

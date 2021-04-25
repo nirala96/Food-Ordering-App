@@ -38,10 +38,16 @@ dependencies:
   fluttertoast: ^8.0.4
   shared_preferences: ^2.0.5
   flutter_spinkit: ^5.0.0
+  flutter_launcher_icons: ^0.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  image_path: "assets/app-logo-62-removebg-preview-square.png" 
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

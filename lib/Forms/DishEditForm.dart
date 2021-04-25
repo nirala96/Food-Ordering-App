@@ -11,66 +11,44 @@ class DishEditForm extends StatefulWidget {
 }
 
 class _DishEditFormState extends State<DishEditForm> {
-
-  TextEditingController DishName=new TextEditingController();
-  TextEditingController DishPrice=new TextEditingController();
-
+  TextEditingController DishName = new TextEditingController();
+  TextEditingController DishPrice = new TextEditingController();
 
   String IsAvailable = '';
   String colorGroupValue = '';
   String valueChoose;
-  List listItem = [
-    "starter","main course","desserts"
-  ];
+  List listItem = ["starter", "main course", "desserts"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff409439),
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: (){
-
-        }),
+        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
         title: Text("             EDIT DISH"),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: (){
-
-
-          })
+          IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
       ),
       body: SingleChildScrollView(
-
         child: Column(
           children: <Widget>[
-
             Card(
-
-
               child: TextField(
                 controller: DishName,
                 style: TextStyle(
                   color: Colors.black,
                 ),
-
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Color(0xffEEEEEE),
                   labelText: "Dish name",
                 ),
-                onChanged: (value) {
-
-                },
-
+                onChanged: (value) {},
               ),
-
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-
             ),
-
             Card(
-
-
               child: TextField(
                 controller: DishPrice,
                 style: TextStyle(
@@ -81,53 +59,39 @@ class _DishEditFormState extends State<DishEditForm> {
                   fillColor: Color(0xffEEEEEE),
                   labelText: "Dish Price",
                 ),
-                onChanged: (value) {
-
-                },
-
+                onChanged: (value) {},
               ),
-
-
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-
             ),
-
             Row(
               children: <Widget>[
                 SizedBox(
                   width: 40.0,
                 ),
                 Text("Available "),
-                Radio(value: 'Available',
+                Radio(
+                    value: 'Available',
                     groupValue: colorGroupValue,
-                    onChanged: (val){
+                    onChanged: (val) {
                       colorGroupValue = val;
                       IsAvailable = 'Available';
-                      setState(() {
-
-                      });
+                      setState(() {});
                     }),
                 SizedBox(
                   width: 50.0,
                 ),
-
                 Text("Not Available"),
-                Radio(value: 'Not Available',
+                Radio(
+                    value: 'Not Available',
                     groupValue: colorGroupValue,
-                    onChanged: (val){
+                    onChanged: (val) {
                       colorGroupValue = val;
                       IsAvailable = 'Not Available';
-                      setState(() {
-
-                      });
+                      setState(() {});
                     }),
-
               ],
-
             ),
-
             Card(
-
               child: DropdownButton(
                 hint: Text("Select Dish Type"),
                 dropdownColor: Colors.white,
@@ -135,43 +99,30 @@ class _DishEditFormState extends State<DishEditForm> {
                 iconSize: 36,
                 isExpanded: true,
                 underline: SizedBox(),
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize:15
-                ),
-                value:valueChoose,
-                onChanged: (newValue){
+                style: TextStyle(color: Colors.black, fontSize: 15),
+                value: valueChoose,
+                onChanged: (newValue) {
                   setState(() {
                     valueChoose = newValue;
                   });
-
                 },
-                items: listItem.map((valueItem){
+                items: listItem.map((valueItem) {
                   return DropdownMenuItem(
                     value: valueItem,
                     child: Text(valueItem),
-
-
                   );
-
                 }).toList(),
               ),
-
-
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-
             ),
-
             SizedBox(
               height: 75.0,
             ),
-
             Card(
               color: Colors.redAccent,
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
               child: ListTile(
-                onTap: (){
-
+                onTap: () {
                   showAlertDialog(context);
                 },
                 title: Center(
@@ -186,14 +137,7 @@ class _DishEditFormState extends State<DishEditForm> {
                 ),
               ),
             ),
-
-
-
           ],
-
-
-
-
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -206,15 +150,9 @@ class _DishEditFormState extends State<DishEditForm> {
   }
 
   void handleDishEdit(BuildContext context) async {
-    print("reached handlesubmitted");
     UserServices userServices = new UserServices();
     ApiResponse _apiResponse = await userServices.dish_edit_form(
-        DishName.text,
-        DishPrice.text,
-        IsAvailable,
-        valueChoose
-
-    );
+        DishName.text, DishPrice.text, IsAvailable, valueChoose);
 
     print(_apiResponse.ApiError);
     if ((_apiResponse.ApiError as ApiError) == null) {
@@ -227,9 +165,7 @@ class _DishEditFormState extends State<DishEditForm> {
       msgToast("DishAdd Failed!");
     }
   }
-
 }
-
 
 showAlertDialog(BuildContext context) {
   // Create button
@@ -237,15 +173,11 @@ showAlertDialog(BuildContext context) {
     children: [
       TextButton(
         child: Text("Yes"),
-        onPressed: () {
-
-        },
+        onPressed: () {},
       ),
       TextButton(
         child: Text("No"),
-        onPressed: () {
-
-        },
+        onPressed: () {},
       )
     ],
   );
@@ -266,7 +198,4 @@ showAlertDialog(BuildContext context) {
       return alert;
     },
   );
-
-
 }
-

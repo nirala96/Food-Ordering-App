@@ -20,7 +20,8 @@ class CatalogItemUser extends StatelessWidget {
         Hero(
           tag: Key(dish.dish_id.toString()),
           child: CatalogImage(
-            image: "https://static.toiimg.com/thumb/53110049.cms?width=1200&height=900",
+            image:
+                "https://static.toiimg.com/thumb/53110049.cms?width=1200&height=900",
           ),
         ),
         Expanded(

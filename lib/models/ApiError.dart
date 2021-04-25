@@ -1,4 +1,3 @@
-
 class ApiError {
   String _error;
 

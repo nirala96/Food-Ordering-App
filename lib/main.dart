@@ -14,15 +14,15 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Login Demo', routes: {
+    return MaterialApp(title: 'Food Delivery App', routes: {
       '/': (context) => LandingPage(),
       '/home': (context) => HomePage(),
       '/login': (context) => LoginPage(),
       '/dash': (context) => Dashboard(),
       '/admindash': (context) => AdminDashboard(),
-      '/profile' : (context) => ProfileScreen(),
-      '/loadDash' : (context) => DashboardLoader(),
-      '/signup' : (context) => SignupPage(),
+      '/profile': (context) => ProfileScreen(),
+      '/loadDash': (context) => DashboardLoader(),
+      '/signup': (context) => SignupPage(),
     });
   }
 }

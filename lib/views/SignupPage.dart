@@ -172,7 +172,6 @@ class SignupPage extends StatelessWidget {
   }
 
   void handleSignup(BuildContext context) async {
-    print("reached handlesubmitted");
     UserServices userServices = new UserServices();
     ApiResponse _apiResponse = await userServices.signup(
       cusername.text,

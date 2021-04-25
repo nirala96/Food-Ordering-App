@@ -8,7 +8,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserDetails args =
         ModalRoute.of(context).settings.arguments as UserDetails;
-    
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Color(0xff212121),

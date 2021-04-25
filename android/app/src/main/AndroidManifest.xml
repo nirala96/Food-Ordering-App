@@ -8,7 +8,7 @@
     <application
         android:usesCleartextTraffic="true"
         android:name="io.flutter.app.FlutterApplication"
-        android:label="login_page_day_23"
+        android:label="Food Delivery App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

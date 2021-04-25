@@ -5,6 +5,7 @@ import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
 import 'package:food_ordering_app/models/User.dart';
 import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/widgets/msgToast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
@@ -177,22 +178,14 @@ class LoginPage extends StatelessWidget {
   }
 
   void handleSubmitted(BuildContext context) async {
-    print("reached handlesubmitted");
     UserServices userServices = new UserServices();
-    ApiResponse _apiResponse = await userServices.login(cusername.text, cpassword.text);
+    ApiResponse _apiResponse =
+        await userServices.login(cusername.text, cpassword.text);
     print(_apiResponse.ApiError);
     if ((_apiResponse.ApiError as ApiError) == null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString("user_id", (_apiResponse.Data as User).user_id);
       int isadminstored = (_apiResponse.Data as User).isAdmin;
-      // if ((_apiResponse.Data as User).isAdmin == 0) {
-      //   Navigator.pushNamedAndRemoveUntil(
-      //     context,
-      //     '/loadDash',
-      //     ModalRoute.withName('/loadDash'),
-      //     arguments: isadminstored,
-      //   );
-      // } else {
       Navigator.pushNamedAndRemoveUntil(
         context,
         '/loadDash',
@@ -201,19 +194,7 @@ class LoginPage extends StatelessWidget {
       );
       // }
     } else {
-      showToastMsg("Login Failed!");
+      msgToast("Login Failed!");
     }
-  }
-
-  void showToastMsg(String s) {
-    Fluttertoast.showToast(
-      msg: s,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
   }
 }
