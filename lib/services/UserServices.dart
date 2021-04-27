@@ -10,7 +10,7 @@ import 'package:food_ordering_app/models/ApiRespose.dart';
 class UserServices {
   Future<ApiResponse> details(String userId) async {
     ApiResponse _apiResponse = new ApiResponse();
-    Uri url = Uri.parse('http://192.168.43.27:8800/userdetails');
+    Uri url = Uri.parse('http://192.168.43.214:8800/userdetails');
     try {
       final http.Response response = await http.post(
         url,
@@ -44,7 +44,7 @@ class UserServices {
   Future<ApiResponse> login(String userName, String userPass) async {
     ApiResponse _apiResponse = new ApiResponse();
     print("reached login user");
-    Uri url = Uri.parse('http://192.168.43.27:8800/login');
+    Uri url = Uri.parse('http://192.168.43.214:8800/login');
 
     try {
       final http.Response response = await http.post(
@@ -83,7 +83,7 @@ class UserServices {
     int isAdmin = 0;
     ApiResponse _apiResponse = new ApiResponse();
     print("reached signup user");
-    Uri url = Uri.parse('http://192.168.43.27:8800/login/newuser');
+    Uri url = Uri.parse('http://192.168.43.214:8800/login/newuser');
     try {
       final http.Response response = await http.post(
         url,
@@ -118,27 +118,30 @@ class UserServices {
     return _apiResponse;
   }
 
-  Future<ApiResponse> dish_add_form(String dish_id, String dish_name, String dish_price, String isAvailable, String restaurant_id, String dish_type) async {
-//    int isAvailable= 0;
+  Future<ApiResponse> dish_add_form(String dish_name, int dish_price,
+      String dish_type ,String restaurant_id ) async {
+    int isAvailable= 1;
     ApiResponse _apiResponse = new ApiResponse();
     print("reached dish add user");
     ///////////isko dekho kon sa api hai
-    Uri url = Uri.parse('http://192.168.43.27:8800/login/newuser');
+    Uri url = Uri.parse('http://192.168.43.214:8800/dishes');
     try {
-      final http.Response response = await http.put(
+
+      final http.Response response = await http.post(
         url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'dish_id': dish_id,
+          //'dish_id': dish_id,
           'dish_name': dish_name,
-          'dish_price': dish_price,
-          'isAvailable': isAvailable,
-          'dish_rest_id': restaurant_id,
-          'dish_type': dish_type
+          'dish_price': dish_price.toString(),
+          'isAvailable': isAvailable.toString(),
+          'dish_type': dish_type,
+          'dish_rest_id': restaurant_id
         }),
       );
+
 
       switch (response.statusCode) {
         case 200:
@@ -161,12 +164,13 @@ class UserServices {
   }
 
 
-  Future<ApiResponse> dish_edit_form(String dish_name, String dish_price, String isAvailable, String dish_type) async {
+  Future<ApiResponse> dish_edit_form(String dish_name, int dish_price, int isAvailable, String dish_type) async {
 //    int isAvailable= 0;
+  String rest_id= 'r0001';
     ApiResponse _apiResponse = new ApiResponse();
     print("reached edit dish user");
     ///////////isko dekho kon sa api hai
-    Uri url = Uri.parse('http://192.168.43.27:8800/login/newuser');
+    Uri url = Uri.parse('http://192.168.43.214:8800/dishes');
     try {
       final http.Response response = await http.put(
         url,
@@ -175,9 +179,10 @@ class UserServices {
         },
         body: jsonEncode(<String, String>{
           'dish_name': dish_name,
-          'dish_price': dish_price,
-          'isAvailable': isAvailable,
-          'dish_type': dish_type
+          'dish_price': dish_price.toString(),
+          'isAvailable': isAvailable.toString(),
+          'dish_type': dish_type,
+          'dish_rest_id' : rest_id,
         }),
       );
 
@@ -188,11 +193,11 @@ class UserServices {
           break;
         case 409:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
+          //msgToast('login failed');
           break;
         default:
           _apiResponse.ApiError = ApiError.fromJson(json.decode(response.body));
-          // showToastMsg('login failed');
+         // msgToast('login failed');
           break;
       }
     } on SocketException {
@@ -206,8 +211,8 @@ class UserServices {
 //    int isAvailable= 0;
     ApiResponse _apiResponse = new ApiResponse();
     print("reached edit dish user");
-    ///////////isko dekho kon sa api hai
-    Uri url = Uri.parse('http://192.168.43.27:8800/login/newuser');
+
+    Uri url = Uri.parse('http://192.168.43.214:8800/');
     try {
       final http.Response response = await http.put(
         url,

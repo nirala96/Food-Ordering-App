@@ -16,7 +16,7 @@ class _DishEditFormState extends State<DishEditForm> {
   TextEditingController DishPrice=new TextEditingController();
 
 
-  String IsAvailable = '';
+  int IsAvailable;
   String colorGroupValue = '';
   String valueChoose;
   List listItem = [
@@ -102,7 +102,7 @@ class _DishEditFormState extends State<DishEditForm> {
                     groupValue: colorGroupValue,
                     onChanged: (val){
                       colorGroupValue = val;
-                      IsAvailable = 'Available';
+                      IsAvailable = 1;
                       setState(() {
 
                       });
@@ -116,7 +116,7 @@ class _DishEditFormState extends State<DishEditForm> {
                     groupValue: colorGroupValue,
                     onChanged: (val){
                       colorGroupValue = val;
-                      IsAvailable = 'Not Available';
+                      IsAvailable = 0;
                       setState(() {
 
                       });
@@ -210,10 +210,9 @@ class _DishEditFormState extends State<DishEditForm> {
     UserServices userServices = new UserServices();
     ApiResponse _apiResponse = await userServices.dish_edit_form(
         DishName.text,
-        DishPrice.text,
+        int.parse(DishPrice.text),
         IsAvailable,
         valueChoose
-
     );
 
     print(_apiResponse.ApiError);

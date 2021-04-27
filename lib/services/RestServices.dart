@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 Future<ApiResponse> getDishes() async {
   ApiResponse _apiResponse = new ApiResponse();
   print("reached login user");
-  Uri url = Uri.parse('http://192.168.43.27:8800/dishes');
+  Uri url = Uri.parse('http://192.168.43.214:8800/dishes');
 
   try {
     final http.Response response = await http.get(url);

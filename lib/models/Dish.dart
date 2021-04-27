@@ -1,5 +1,5 @@
 class Dish {
-  final int dish_id;
+  final String dish_id;
   final String dish_name;
   final int dish_price;
   final int isAvailable;

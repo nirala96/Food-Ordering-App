@@ -38,7 +38,7 @@ class CatalogItemAdmin extends StatelessWidget {
               alignment: MainAxisAlignment.spaceBetween,
               buttonPadding: EdgeInsets.zero,
               children: [
-                "\$${dish.dish_price}".text.xl.bold.make(),
+                "\₹${dish.dish_price}".text.xl.bold.make(),
                 EditButton(),
               ],
             ).pOnly(right: 16.0)

@@ -31,6 +31,7 @@ class _LandingPageState extends State<LandingPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
+              print('snapshot.connectionState error');
               return Center(
                 child: Text(
                   '${snapshot.error} occured',

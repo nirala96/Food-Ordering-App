@@ -124,6 +124,7 @@ class LoginPage extends StatelessWidget {
                             "Sign up",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 18),
+
                           ),
                         ],
                       ))

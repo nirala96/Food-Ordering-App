@@ -3,6 +3,7 @@ import 'package:food_ordering_app/animation/FadeAnimation.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
 import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/views/Restaurant/AdminDashboard.dart';
 import 'package:food_ordering_app/widgets/msgToast.dart';
 
 class DishAddForm extends StatefulWidget {
@@ -12,11 +13,11 @@ class DishAddForm extends StatefulWidget {
 
 class _DishAddFormState extends State<DishAddForm> {
 
-  TextEditingController DishID=new TextEditingController();
+ // TextEditingController DishID=new TextEditingController();
   TextEditingController DishName=new TextEditingController();
   TextEditingController DishPrice=new TextEditingController();
   TextEditingController RestaurantID=new TextEditingController();
-  String IsAvailable = '';
+  //int IsAvailable = 0;
   String colorGroupValue = '';
   String valueChoose;
   List listItem = [
@@ -31,7 +32,7 @@ class _DishAddFormState extends State<DishAddForm> {
         leading: IconButton(icon: Icon(Icons.menu), onPressed: (){
 
         }),
-        title: Text("             ADD DISH"),
+        title: Center(child: Text("ADD DISH")),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.search), onPressed: (){
 
@@ -43,46 +44,46 @@ class _DishAddFormState extends State<DishAddForm> {
 
         child: Column(
           children: <Widget>[
-            Card(
-
-              child: TextField(
-                controller: DishID,
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color(0xffEEEEEE),
-                  labelText: "Dish ID*",
-                ),
-                onChanged: (value) {
-
-                },
-
-              ),
-
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-
-            ),
-            Align(
-
-              alignment: Alignment.topLeft,
-              child:  Padding(
-                padding: const EdgeInsets.only(left: 22.0),
-                child: Text(
-                  "generated automatically",
-
-                  style: TextStyle(
-                    color: Color.fromRGBO(0, 0, 0, 0.6),
-                    fontSize: 12.0,
-
-                  ),
-
-
-                ),
-              ),
-            ),
+            // Card(
+            //
+            //   child: TextField(
+            //     controller: DishID,
+            //     style: TextStyle(
+            //       color: Colors.black,
+            //     ),
+            //
+            //     decoration: InputDecoration(
+            //       filled: true,
+            //       fillColor: Color(0xffEEEEEE),
+            //       labelText: "Dish ID*",
+            //     ),
+            //     onChanged: (value) {
+            //
+            //     },
+            //
+            //   ),
+            //
+            //   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
+            //
+            // ),
+            // Align(
+            //
+            //   alignment: Alignment.topLeft,
+            //   child:  Padding(
+            //     padding: const EdgeInsets.only(left: 22.0),
+            //     child: Text(
+            //       "generated automatically",
+            //
+            //       style: TextStyle(
+            //         color: Color.fromRGBO(0, 0, 0, 0.6),
+            //         fontSize: 12.0,
+            //
+            //       ),
+            //
+            //
+            //     ),
+            //   ),
+            // ),
 
             Card(
 
@@ -132,39 +133,39 @@ class _DishAddFormState extends State<DishAddForm> {
 
             ),
 
-            Row(
-              children: <Widget>[
-                SizedBox(
-                  width: 40.0,
-                ),
-                Text("Available "),
-                Radio(value: 'Available',
-                    groupValue: colorGroupValue,
-                    onChanged: (val){
-                      colorGroupValue = val;
-                      IsAvailable = 'Available';
-                      setState(() {
-
-                      });
-                    }),
-                SizedBox(
-                  width: 50.0,
-                ),
-
-                Text("Not Available"),
-                Radio(value: 'Not Available',
-                    groupValue: colorGroupValue,
-                    onChanged: (val){
-                      colorGroupValue = val;
-                      IsAvailable = 'Not Available';
-                      setState(() {
-
-                      });
-                    }),
-
-              ],
-
-            ),
+            // Row(
+            //   children: <Widget>[
+            //     SizedBox(
+            //       width: 40.0,
+            //     ),
+            //     Text("Available "),
+            //     Radio(value: 'Available',
+            //         groupValue: colorGroupValue,
+            //         onChanged: (val){
+            //           colorGroupValue = val;
+            //           IsAvailable = 1;
+            //           setState(() {
+            //
+            //           });
+            //         }),
+            //     SizedBox(
+            //       width: 50.0,
+            //     ),
+            //
+            //     Text("Not Available"),
+            //     Radio(value: 'Not Available',
+            //         groupValue: colorGroupValue,
+            //         onChanged: (val){
+            //           colorGroupValue = val;
+            //           IsAvailable = 0;
+            //           setState(() {
+            //
+            //           });
+            //         }),
+            //
+            //   ],
+            //
+            // ),
 
             Card(
 
@@ -264,13 +265,11 @@ class _DishAddFormState extends State<DishAddForm> {
     print("reached handlesubmitted");
     UserServices userServices = new UserServices();
     ApiResponse _apiResponse = await userServices.dish_add_form(
-      DishID.text,
+     // DishID.text,
       DishName.text,
-      DishPrice.text,
-      IsAvailable,
-      RestaurantID.text,
-      valueChoose
-
+      int.parse(DishPrice.text),
+      valueChoose,
+      RestaurantID.text
     );
 
     print(_apiResponse.ApiError);
