@@ -5,9 +5,11 @@ import 'package:food_ordering_app/models/ApiRespose.dart';
 import 'package:food_ordering_app/models/DishList.dart';
 import 'package:food_ordering_app/models/UserDetails.dart';
 import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/views/CartPage.dart';
 import 'package:food_ordering_app/views/User/UserCatalogItem.dart';
 import 'package:food_ordering_app/widgets/msgToast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -41,8 +43,8 @@ class _DashboardState extends State<Dashboard> {
       body: CatalogList(dishList: args),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-//          Navigator.push(
-//              context, MaterialPageRoute(builder: (context) => DishAddForm()));
+         Navigator.push(
+             context, MaterialPageRoute(builder: (context) => CartPage()));
         },
         child: Icon(Icons.shopping_cart),
       ),
@@ -86,7 +88,7 @@ class CatalogList extends StatelessWidget {
   CatalogList({Key key, this.dishList});
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return (dishList==null)?"Nothing to show".text.xl3.make().centered():ListView.builder(
       shrinkWrap: true,
       itemCount: dishList.length,
       itemBuilder: (context, index) {

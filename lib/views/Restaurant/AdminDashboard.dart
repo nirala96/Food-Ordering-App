@@ -9,6 +9,7 @@ import 'package:food_ordering_app/services/UserServices.dart';
 import 'package:food_ordering_app/views/Restaurant/AdminCatalogItem.dart';
 import 'package:food_ordering_app/widgets/msgToast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class AdminDashboard extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
+
   @override
   Widget build(BuildContext context) {
     final DishList args = ModalRoute.of(context).settings.arguments as DishList;
@@ -82,7 +84,8 @@ class CatalogList extends StatelessWidget {
   CatalogList({Key key, this.dishList});
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return (dishList == null )? "Nothing to show".text.make().centered() :
+    ListView.builder(
       shrinkWrap: true,
       itemCount: dishList.length,
       itemBuilder: (context, index) {

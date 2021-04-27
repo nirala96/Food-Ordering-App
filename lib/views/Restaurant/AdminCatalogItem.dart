@@ -39,8 +39,8 @@ class CatalogItemAdmin extends StatelessWidget {
               alignment: MainAxisAlignment.spaceBetween,
               buttonPadding: EdgeInsets.zero,
               children: [
-                "\$${dish.dish_price}".text.xl.bold.make(),
-                EditButton(),
+                "\₹${dish.dish_price}".text.xl.bold.make(),
+                EditButton(dish.dish_id),
               ],
             ).pOnly(right: 16.0)
           ],
@@ -51,13 +51,17 @@ class CatalogItemAdmin extends StatelessWidget {
 }
 
 class EditButton extends StatelessWidget {
+  final int dish_id;
+
+  EditButton(this.dish_id);
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(builder: (context) => DishEditForm()),
+          '/dishEditForm',
+          arguments: dish_id,
         );
       },
       style: ButtonStyle(

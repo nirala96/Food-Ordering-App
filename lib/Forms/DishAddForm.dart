@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
+import 'package:food_ordering_app/services/RestServices.dart';
 import 'package:food_ordering_app/services/UserServices.dart';
+import 'package:food_ordering_app/views/Restaurant/AdminDashboard.dart';
 import 'package:food_ordering_app/widgets/msgToast.dart';
 
 class DishAddForm extends StatefulWidget {
@@ -11,12 +13,11 @@ class DishAddForm extends StatefulWidget {
 }
 
 class _DishAddFormState extends State<DishAddForm> {
-  TextEditingController DishID = new TextEditingController();
+  // TextEditingController DishID=new TextEditingController();
   TextEditingController DishName = new TextEditingController();
   TextEditingController DishPrice = new TextEditingController();
   TextEditingController RestaurantID = new TextEditingController();
-  String IsAvailable = '';
-  String colorGroupValue = '';
+  //int IsAvailable = 0;  String colorGroupValue = '';
   String valueChoose;
   List listItem = ["starter", "main course", "desserts"];
 
@@ -26,7 +27,7 @@ class _DishAddFormState extends State<DishAddForm> {
       appBar: AppBar(
         backgroundColor: Color(0xff409439),
         leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-        title: Text("             ADD DISH"),
+        title: Center(child: Text("ADD DISH")),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
@@ -34,34 +35,46 @@ class _DishAddFormState extends State<DishAddForm> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Card(
-              child: TextField(
-                controller: DishID,
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color(0xffEEEEEE),
-                  labelText: "Dish ID*",
-                ),
-                onChanged: (value) {},
-              ),
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 22.0),
-                child: Text(
-                  "generated automatically",
-                  style: TextStyle(
-                    color: Color.fromRGBO(0, 0, 0, 0.6),
-                    fontSize: 12.0,
-                  ),
-                ),
-              ),
-            ),
+            // Card(
+            //
+            //   child: TextField(
+            //     controller: DishID,
+            //     style: TextStyle(
+            //       color: Colors.black,
+            //     ),
+            //
+            //     decoration: InputDecoration(
+            //       filled: true,
+            //       fillColor: Color(0xffEEEEEE),
+            //       labelText: "Dish ID*",
+            //     ),
+            //     onChanged: (value) {
+            //
+            //     },
+            //
+            //   ),
+            //
+            //   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
+            //
+            // ),
+            // Align(
+            //
+            //   alignment: Alignment.topLeft,
+            //   child:  Padding(
+            //     padding: const EdgeInsets.only(left: 22.0),
+            //     child: Text(
+            //       "generated automatically",
+            //
+            //       style: TextStyle(
+            //         color: Color.fromRGBO(0, 0, 0, 0.6),
+            //         fontSize: 12.0,
+            //
+            //       ),
+            //
+            //
+            //     ),
+            //   ),
+            // ),
             Card(
               child: TextField(
                 controller: DishName,
@@ -92,34 +105,40 @@ class _DishAddFormState extends State<DishAddForm> {
               ),
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
             ),
-            Row(
-              children: <Widget>[
-                SizedBox(
-                  width: 40.0,
-                ),
-                Text("Available "),
-                Radio(
-                    value: 'Available',
-                    groupValue: colorGroupValue,
-                    onChanged: (val) {
-                      colorGroupValue = val;
-                      IsAvailable = 'Available';
-                      setState(() {});
-                    }),
-                SizedBox(
-                  width: 50.0,
-                ),
-                Text("Not Available"),
-                Radio(
-                    value: 'Not Available',
-                    groupValue: colorGroupValue,
-                    onChanged: (val) {
-                      colorGroupValue = val;
-                      IsAvailable = 'Not Available';
-                      setState(() {});
-                    }),
-              ],
-            ),
+            // Row(
+            //   children: <Widget>[
+            //     SizedBox(
+            //       width: 40.0,
+            //     ),
+            //     Text("Available "),
+            //     Radio(value: 'Available',
+            //         groupValue: colorGroupValue,
+            //         onChanged: (val){
+            //           colorGroupValue = val;
+            //           IsAvailable = 1;
+            //           setState(() {
+            //
+            //           });
+            //         }),
+            //     SizedBox(
+            //       width: 50.0,
+            //     ),
+            //
+            //     Text("Not Available"),
+            //     Radio(value: 'Not Available',
+            //         groupValue: colorGroupValue,
+            //         onChanged: (val){
+            //           colorGroupValue = val;
+            //           IsAvailable = 0;
+            //           setState(() {
+            //
+            //           });
+            //         }),
+            //
+            //   ],
+            //
+            // ),
+
             Card(
               child: DropdownButton(
                 hint: Text("Select Dish Type"),
@@ -182,20 +201,23 @@ class _DishAddFormState extends State<DishAddForm> {
   }
 
   void handleDishAdd(BuildContext context) async {
-    UserServices userServices = new UserServices();
-    ApiResponse _apiResponse = await userServices.dish_add_form(
-        DishID.text,
-        DishName.text,
-        DishPrice.text,
-        IsAvailable,
-        RestaurantID.text,
-        valueChoose);
+    const int isadmin = 1;
+    print("reached handlesubmitted");
+    RestServices restServices = new RestServices();
+    ApiResponse _apiResponse = await restServices.addDish(
+      // DishID.text,
+      DishName.text,
+      int.parse(DishPrice.text),
+      valueChoose,
+      RestaurantID.text,
+    );
 
     if ((_apiResponse.ApiError as ApiError) == null) {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        '/admindash',
-        ModalRoute.withName('/admindash'),
+        '/loadDash',
+        ModalRoute.withName('/loadDash'),
+        arguments: isadmin,
       );
     } else {
       msgToast("DishAdd Failed!");

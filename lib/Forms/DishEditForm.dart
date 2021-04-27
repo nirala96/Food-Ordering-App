@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_ordering_app/animation/FadeAnimation.dart';
 import 'package:food_ordering_app/models/ApiError.dart';
 import 'package:food_ordering_app/models/ApiRespose.dart';
+import 'package:food_ordering_app/models/Dish.dart';
+import 'package:food_ordering_app/services/RestServices.dart';
 import 'package:food_ordering_app/services/UserServices.dart';
 import 'package:food_ordering_app/widgets/msgToast.dart';
 
@@ -13,14 +15,16 @@ class DishEditForm extends StatefulWidget {
 class _DishEditFormState extends State<DishEditForm> {
   TextEditingController DishName = new TextEditingController();
   TextEditingController DishPrice = new TextEditingController();
+  TextEditingController RestaurantId = new TextEditingController();
 
-  String IsAvailable = '';
+  int IsAvailable;
   String colorGroupValue = '';
   String valueChoose;
-  List listItem = ["starter", "main course", "desserts"];
+  List listItem = ['starter', 'main course', 'dessert', 'snack', 'beverage'];
 
   @override
   Widget build(BuildContext context) {
+    int args = ModalRoute.of(context).settings.arguments as int;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff409439),
@@ -74,7 +78,7 @@ class _DishEditFormState extends State<DishEditForm> {
                     groupValue: colorGroupValue,
                     onChanged: (val) {
                       colorGroupValue = val;
-                      IsAvailable = 'Available';
+                      IsAvailable = 1;
                       setState(() {});
                     }),
                 SizedBox(
@@ -86,7 +90,7 @@ class _DishEditFormState extends State<DishEditForm> {
                     groupValue: colorGroupValue,
                     onChanged: (val) {
                       colorGroupValue = val;
-                      IsAvailable = 'Not Available';
+                      IsAvailable = 0;
                       setState(() {});
                     }),
               ],
@@ -119,6 +123,21 @@ class _DishEditFormState extends State<DishEditForm> {
               height: 75.0,
             ),
             Card(
+              child: TextField(
+                controller: RestaurantId,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color(0xffEEEEEE),
+                  labelText: "Restaurant ID",
+                ),
+                onChanged: (value) {},
+              ),
+              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
+            ),
+            Card(
               color: Colors.redAccent,
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
               child: ListTile(
@@ -142,24 +161,32 @@ class _DishEditFormState extends State<DishEditForm> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          handleDishEdit(context);
+          handleDishEdit(context, args);
         },
         child: Icon(Icons.save),
       ),
     );
   }
 
-  void handleDishEdit(BuildContext context) async {
-    UserServices userServices = new UserServices();
-    ApiResponse _apiResponse = await userServices.dish_edit_form(
-        DishName.text, DishPrice.text, IsAvailable, valueChoose);
+  void handleDishEdit(BuildContext context, int args) async {
+    print("reached handlesubmitted");
+    RestServices restServices = new RestServices();
+    ApiResponse _apiResponse = await restServices.editDish(
+      DishName.text,
+      DishPrice.text,
+      IsAvailable.toString(),
+      valueChoose,
+      args.toString(),
+      RestaurantId.text,
+    );
 
     print(_apiResponse.ApiError);
     if ((_apiResponse.ApiError as ApiError) == null) {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        '/admindash',
-        ModalRoute.withName('/admindash'),
+        '/loadDash',
+        ModalRoute.withName('/loadDash'),
+        arguments: 1,
       );
     } else {
       msgToast("DishAdd Failed!");

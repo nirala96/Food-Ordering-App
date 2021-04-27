@@ -159,6 +159,7 @@ class _UserDetailFormState extends State<UserDetailForm> {
         '/admindash',
         ModalRoute.withName('/admindash'),
       );
+      Navigator.pushNamed(context, '/profile');
     } else {
       msgToast("DishAdd Failed!");
     }

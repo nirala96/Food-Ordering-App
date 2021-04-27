@@ -19,7 +19,8 @@ class _DashboardLoaderState extends State<DashboardLoader> {
   }
 
   void getDishData() async {
-    ApiResponse _apiResponse = await getDishes();
+    RestServices restServices = new RestServices();
+    ApiResponse _apiResponse = await restServices.getDishes();
     print(_apiResponse.ApiError);
     DishList dishList;
     if ((_apiResponse.ApiError as ApiError) == null) {

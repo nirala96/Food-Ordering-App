@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/Forms/UserDetailForm.dart';
 import 'package:food_ordering_app/models/UserDetails.dart';
+import 'package:food_ordering_app/views/User/OrderHistory.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -67,6 +68,12 @@ class ProfileScreen extends StatelessWidget {
               color: Color(0xff373737),
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OrderHistoryPage()));
+                },
                 leading: Icon(
                   Icons.history,
                   color: Colors.white,
