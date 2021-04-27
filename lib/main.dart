@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:food_ordering_app/Forms/DishAddForm.dart';
+import 'package:food_ordering_app/Forms/DishEditForm.dart';
+import 'package:food_ordering_app/Forms/UserDetailForm.dart';
 import 'package:food_ordering_app/views/LandingPage.dart';
 import 'package:food_ordering_app/views/DashboardLoader.dart';
 import 'package:food_ordering_app/views/ProfilePage.dart';
@@ -22,7 +25,10 @@ class MyApp extends StatelessWidget {
       '/admindash': (context) => AdminDashboard(),
       '/profile' : (context) => ProfileScreen(),
       '/loadDash' : (context) => DashboardLoader(),
-      '/signup' : (context) => SignupPage(),
+      '/dishEditForm' : (context) => DishEditForm(),
+      '/dishAddForm' : (context) => DishAddForm(),
+      '/userDetailsForm' : (context) => UserDetailForm(),
+      // '/signup' : (context) => SignupPage(),
     });
   }
 }

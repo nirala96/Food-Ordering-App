@@ -20,7 +20,8 @@ class CatalogItemAdmin extends StatelessWidget {
         Hero(
           tag: Key(dish.dish_id.toString()),
           child: CatalogImage(
-            image: "https://static.toiimg.com/thumb/53110049.cms?width=1200&height=900",
+            image:
+                "https://static.toiimg.com/thumb/53110049.cms?width=1200&height=900",
           ),
         ),
         Expanded(
@@ -39,7 +40,7 @@ class CatalogItemAdmin extends StatelessWidget {
               buttonPadding: EdgeInsets.zero,
               children: [
                 "\₹${dish.dish_price}".text.xl.bold.make(),
-                EditButton(),
+                EditButton(dish.dish_id),
               ],
             ).pOnly(right: 16.0)
           ],
@@ -50,12 +51,14 @@ class CatalogItemAdmin extends StatelessWidget {
 }
 
 class EditButton extends StatelessWidget {
+  final int dish_id;
+
+  EditButton(this.dish_id);
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>DishEditForm()),
-        );
+      onPressed: () {
+        Navigator.pushNamed(context, '/dishEditForm', arguments: dish_id);
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
