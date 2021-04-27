@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_ordering_app/models/Cartmodel.dart';
+import 'package:food_ordering_app/models/Cart.dart';
 import 'package:food_ordering_app/models/Dish.dart';
 import 'package:food_ordering_app/widgets/msgToast.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -69,12 +69,10 @@ class AddToCart extends StatelessWidget {
     return ElevatedButton(
       onPressed: (){
         if(_cart.cart.findItemIndexFromCart(dish.dish_id)==null) {
-          print('is not in cart reached');
           CartModel().addToCart(dish);
           msgToast('${dish.dish_name} added in the cart');
         }
         else {
-            print('is in cart reached');
             CartModel().addItemToCart(_cart.cart.findItemIndexFromCart(dish.dish_id));
             msgToast('${dish.dish_name} added in the cart');
         }

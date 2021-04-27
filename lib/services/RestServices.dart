@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 class RestServices {
   Future<ApiResponse> getDishes() async {
     ApiResponse _apiResponse = new ApiResponse();
-    print("reached login user");
     Uri url = Uri.parse('http://192.168.43.27:8800/dishes');
     try {
       final http.Response response = await http.get(url);
@@ -38,8 +37,6 @@ class RestServices {
       String dish_type, String restaurant_id) async {
     int isAvailable = 1;
     ApiResponse _apiResponse = new ApiResponse();
-    print("reached dish add user");
-    ///////////isko dekho kon sa api hai
     Uri url = Uri.parse('http://192.168.43.27:8800/dishes');
     try {
       final http.Response response = await http.post(
@@ -81,7 +78,6 @@ class RestServices {
       String isAvailable, String dish_type, String dish_id, String dish_rest_id) async {
 //    int isAvailable= 0;
     ApiResponse _apiResponse = new ApiResponse();
-    print("reached edit dish user");
     ///////////isko dekho kon sa api hai
     Uri url = Uri.parse('http://192.168.43.27:8800/dishes/$dish_id');
     try {

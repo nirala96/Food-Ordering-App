@@ -116,7 +116,6 @@ class UserServices {
       String phone, String address, String pincode) async {
 //    int isAvailable= 0;
     ApiResponse _apiResponse = new ApiResponse();
-    print("reached edit dish user");
 
     Uri url = Uri.parse('http://192.168.43.27:8800/');
     try {

@@ -202,7 +202,6 @@ class _DishAddFormState extends State<DishAddForm> {
 
   void handleDishAdd(BuildContext context) async {
     const int isadmin = 1;
-    print("reached handlesubmitted");
     RestServices restServices = new RestServices();
     ApiResponse _apiResponse = await restServices.addDish(
       // DishID.text,
