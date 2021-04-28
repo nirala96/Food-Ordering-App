@@ -6,7 +6,7 @@ We have made a food ordering system. It will help the restaurant to do all the f
 # 💻Tech Stack Used
 - Frontend - Flutter
 - Backend - NodeJS
-- Database -MySQL
+- Database - MySQL
 
 <br>
 
@@ -33,7 +33,7 @@ We have made a food ordering system. It will help the restaurant to do all the f
 - [Arunoday Kumar](https://github.com/nirala96)
 - [Ashish Kumar Singh](https://github.com/AshishSingh2001)
 - [Kapil Kumar](https://github.com/kapilkumar2001)
-- [Shivam Maalpaani](https://github.com/shivam0110)
+- [Shivam Malpani](https://github.com/shivam0110)
 
 # Screenshots
 
