@@ -169,7 +169,6 @@ class _DishEditFormState extends State<DishEditForm> {
   }
 
   void handleDishEdit(BuildContext context, int args) async {
-    print("reached handlesubmitted");
     RestServices restServices = new RestServices();
     ApiResponse _apiResponse = await restServices.editDish(
       DishName.text,
