@@ -73,6 +73,13 @@ We have made a food ordering system. It will help the restaurant to do all the f
 <br>
 <br>
 
+### ⚡ Working App (User Side - Admin Side)
+<br>
+<img src="Screenshots/user-side.gif" width="45%"></img>
+<img src="Screenshots/admin-side.gif" width="45%"></img>
+<br>
+<br>
+
 ![Visitor count](https://visitor-badge.laobi.icu/badge?page_id=nirala96.Food-Ordering-App)☕
 
 
